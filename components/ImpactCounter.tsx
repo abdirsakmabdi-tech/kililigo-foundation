@@ -42,7 +42,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function ImpactCounter() {
   return (
-    <section id="impact" className="py-20 md:py-28 bg-secondary text-white">
+    <section id="impact" className="mt-12 md:mt-16 py-20 md:py-28 bg-secondary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

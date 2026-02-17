@@ -1,141 +1,229 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useRef, useEffect } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const programs = [
   {
-    title: 'Humanitarian',
-    description: 'Emergency relief, food security, and shelter for vulnerable communities.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
-    color: 'primary',
+    category: 'Relief',
+    title: 'Humanitarian Assistance & Emergency Response',
+    description: 'The organization provides rapid, life-saving support during disasters and conflicts, including emergency food, shelter, and essential WASH services to meet immediate needs and protect dignity.',
+    image: '/program-humanitarian.png',
+    gradient: 'from-orange-600 via-primary to-amber-600',
   },
   {
-    title: 'Health',
-    description: 'Healthcare access, medical facilities, and disease prevention programs.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
-    color: 'secondary',
+    category: 'Health',
+    title: 'Health & Nutrition',
+    description: 'The organization delivers accessible primary healthcare, mobile clinic services, maternal and child health programs, nutrition support, and disease prevention initiatives to improve community health outcomes.',
+    image: '/program-health.png',
+    gradient: 'from-emerald-600 via-teal-600 to-secondary',
   },
   {
-    title: 'Education',
-    description: 'Quality education, school construction, and learning opportunities.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    color: 'primary',
+    category: 'Education',
+    title: 'Education & Child Protection',
+    description: 'The organization supports safe, inclusive education and child protection through learning opportunities, psychosocial support, and safe spaces that promote resilience and child well-being.',
+    image: '/program-education.png',
+    gradient: 'from-secondary via-blue-600 to-indigo-600',
   },
   {
-    title: 'Human Rights',
-    description: 'Advocacy, legal support, and protection of fundamental rights.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-      </svg>
-    ),
-    color: 'secondary',
+    category: 'Rights',
+    title: 'Protection & Human Rights',
+    description: 'The organization offers protection and legal support to refugees, IDPs, and vulnerable groups, promoting rights awareness, access to justice, and the prevention of abuse and exploitation.',
+    image: '/program-protection.png',
+    gradient: 'from-indigo-600 via-violet-600 to-purple-700',
   },
   {
-    title: 'Women Empowerment',
-    description: 'Economic opportunities, skills training, and gender equality.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-    color: 'primary',
+    category: 'Empowerment',
+    title: "Women's Economic Empowerment",
+    description: "The organization promotes economic self-reliance and gender equality by supporting livelihoods, skills development, and income-generating opportunities, while fostering safe and inclusive environments for women and youth.",
+    image: '/hero-2.png',
+    gradient: 'from-pink-600 via-rose-600 to-primary',
   },
   {
-    title: 'Youth Leadership',
-    description: 'Capacity building, mentorship, and youth development programs.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-    color: 'secondary',
+    category: 'Youth',
+    title: 'Youth Leadership and Civic Engagement',
+    description: 'The organization empowers youth through skills development and meaningful participation in community and public decision-making, enabling them to drive positive change, strengthen social cohesion, and support sustainable development.',
+    image: '/hero-3.png',
+    gradient: 'from-primary via-amber-500 to-yellow-600',
   },
   {
-    title: 'Peacebuilding',
-    description: 'Conflict resolution, reconciliation, and community cohesion.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    color: 'primary',
-  },
-  {
-    title: 'Research',
-    description: 'Evidence-based solutions, data collection, and policy advocacy.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-      </svg>
-    ),
-    color: 'secondary',
+    category: 'Peace',
+    title: 'Peacebuilding & Social Cohesion',
+    description: 'The organization strengthens social cohesion through dialogue, reconciliation, conflict prevention, trauma healing, and post-crisis recovery initiatives.',
+    image: '/hero.png',
+    gradient: 'from-green-600 via-emerald-700 to-teal-800',
   },
 ]
 
+const SCROLL_JOURNEY_VH = 350
+
 export default function ProgramGrid() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current
+    const carousel = scrollRef.current
+    if (!wrapper || !carousel) return
+
+    const windowHeight = () => window.innerHeight
+    const journeyPx = () => windowHeight() * (SCROLL_JOURNEY_VH / 100)
+
+    const updateCarouselFromScroll = () => {
+      const rect = wrapper.getBoundingClientRect()
+      const scrollable = carousel.scrollWidth - carousel.clientWidth
+      if (scrollable <= 0) return
+
+      const journey = journeyPx()
+      const progress = Math.max(0, Math.min(1, -rect.top / journey))
+      carousel.scrollLeft = progress * scrollable
+    }
+
+    const handleWheel = (e: WheelEvent) => {
+      const rect = wrapper.getBoundingClientRect()
+      const journey = journeyPx()
+      const progress = Math.max(0, Math.min(1, -rect.top / journey))
+
+      if (progress <= 0 && e.deltaY < 0) return
+      if (progress >= 1 && e.deltaY > 0) return
+
+      const wrapperTop = rect.top + window.scrollY
+      const scrollMin = wrapperTop
+      const scrollMax = wrapperTop + journey
+      const newScrollY = Math.max(scrollMin, Math.min(scrollMax, window.scrollY + e.deltaY))
+
+      const inPinZone = rect.top <= 0 && rect.bottom > 0
+      if (!inPinZone) return
+
+      e.preventDefault()
+      requestAnimationFrame(() => window.scrollTo(0, newScrollY))
+    }
+
+    let lastTouchY = 0
+    const handleTouchStart = (e: Event) => {
+      const ev = e as TouchEvent
+      if (ev.touches.length === 1) lastTouchY = ev.touches[0].clientY
+    }
+    const handleTouchMove = (e: Event) => {
+      const ev = e as TouchEvent
+      if (ev.touches.length !== 1) return
+      const rect = wrapper.getBoundingClientRect()
+      const inPinZone = rect.top <= 0 && rect.bottom > 0
+      if (!inPinZone) return
+
+      const journey = journeyPx()
+      const progress = Math.max(0, Math.min(1, -rect.top / journey))
+      const touchY = ev.touches[0].clientY
+      const deltaY = lastTouchY - touchY
+      lastTouchY = touchY
+
+      if (progress <= 0 && deltaY < 0) return
+      if (progress >= 1 && deltaY > 0) return
+
+      const wrapperTop = rect.top + window.scrollY
+      const scrollMin = wrapperTop
+      const scrollMax = wrapperTop + journey
+      const newScrollY = Math.max(scrollMin, Math.min(scrollMax, window.scrollY + deltaY))
+      if (newScrollY !== window.scrollY) {
+        ev.preventDefault()
+        window.scrollTo(0, newScrollY)
+      }
+    }
+
+    const stickyEl = wrapper.querySelector('.sticky') ?? wrapper
+    stickyEl.addEventListener('touchstart', handleTouchStart, { passive: true })
+    stickyEl.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('scroll', updateCarouselFromScroll, { passive: true })
+    window.addEventListener('resize', updateCarouselFromScroll)
+    window.addEventListener('wheel', handleWheel, { passive: false, capture: true })
+    updateCarouselFromScroll()
+
+    return () => {
+      stickyEl.removeEventListener('touchstart', handleTouchStart)
+      stickyEl.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('scroll', updateCarouselFromScroll)
+      window.removeEventListener('resize', updateCarouselFromScroll)
+      window.removeEventListener('wheel', handleWheel, { capture: true })
+    }
+  }, [])
 
   return (
-    <section id="programs" className="py-20 md:py-28 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-            Our Core Programs
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Comprehensive initiatives designed to support vulnerable communities
-            and promote sustainable development across Somalia.
-          </p>
-        </motion.div>
+    <section id="programs" className="bg-cream">
+      <div
+        ref={wrapperRef}
+        className="relative"
+        style={{ height: `${SCROLL_JOURNEY_VH}vh` }}
+      >
+        <div className="sticky top-0 left-0 right-0 h-screen flex flex-col justify-center bg-cream py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col min-h-0">
+            <div className="text-center mb-8 flex-shrink-0">
+              <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
+                Our Core Programs
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Comprehensive initiatives designed to support vulnerable communities
+                and promote sustainable development across Somalia.
+              </p>
+            </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {programs.map((program, index) => (
-            <motion.div
-              key={program.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={`group bg-white rounded-card p-6 shadow-subtle hover:shadow-card transition-all duration-300 cursor-pointer border-2 ${
-                hoveredIndex === index ? 'border-primary scale-[1.02]' : 'border-transparent'
-              }`}
+            <div
+              ref={scrollRef}
+              className="overflow-x-auto overflow-y-visible min-w-0 flex-1 snap-x snap-mandatory scroll-smooth pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 touch-pan-x scrollbar-hide min-h-[340px] md:min-h-[400px]"
+              style={{ WebkitOverflowScrolling: 'touch' }}
             >
-              <div
-                className={`w-14 h-14 rounded-card flex items-center justify-center mb-4 transition-colors ${
-                  program.color === 'primary'
-                    ? 'bg-primary/10 text-primary'
-                    : 'bg-secondary/10 text-secondary'
-                } ${hoveredIndex === index ? 'scale-110' : ''}`}
-              >
-                {program.icon}
+              <div className="flex gap-5 md:gap-6 min-w-max items-start pr-8 md:pr-12">
+                {programs.map((program, index) => (
+                  <Link
+                    key={index}
+                    href="#programs"
+                    className="flex-shrink-0 w-[calc(60vw-1.5rem)] min-w-[320px] max-w-[520px] snap-start group transition-transform duration-300 hover:scale-[1.02]"
+                  >
+                    {/* Card container - position relative, overflow-hidden for rounded corners only */}
+                    <div className={`relative h-[340px] md:h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br ${program.gradient} transition-shadow duration-300 group-hover:shadow-xl`}>
+                      {/* Background image - absolute inset-0, object-cover */}
+                      <div className="absolute inset-0">
+                        <Image
+                          src={program.image}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 60vw, 520px"
+                        />
+                      </div>
+                      {/* Dark overlay gradient - darker for better content visibility */}
+                      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/55 to-black/25" />
+
+                      {/* Content - no inner holder, left-aligned, category at top, button always visible */}
+                      <div className="absolute inset-0 z-[2] flex flex-col p-4 md:p-5 pb-3 md:pb-4">
+                        {/* Category at top - left-aligned with content */}
+                        <div className="pl-4 mb-[100px] shrink-0">
+                          <span className="inline-flex items-center w-fit px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold uppercase tracking-wider">
+                            {program.category}
+                          </span>
+                        </div>
+                        {/* Title and description - no scroll on mobile/tablet */}
+                        <div className="min-h-0 overflow-hidden lg:overflow-y-auto pl-4">
+                          <h3 className="text-base md:text-lg font-bold text-white leading-snug font-sans mb-2 line-clamp-2 lg:line-clamp-none">
+                            {program.title}
+                          </h3>
+                          <p className="text-gray-200 text-sm leading-relaxed font-sans mb-3 line-clamp-3 lg:line-clamp-none">
+                            {program.description}
+                          </p>
+                        </div>
+                        {/* Button */}
+                        <div className="shrink-0 pl-4 pt-1">
+                          <span className="inline-flex items-center justify-center h-8 px-4 bg-primary text-white text-xs font-semibold transition-all duration-300 group-hover:bg-primary/90" style={{ borderRadius: '9999px' }}>
+                            Read more
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                {program.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{program.description}</p>
-            </motion.div>
-          ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

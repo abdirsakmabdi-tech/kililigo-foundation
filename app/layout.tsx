@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans">
+      <body className="font-sans bg-cream text-gray-800 min-h-screen">
         <Navigation />
         <main>{children}</main>
         <Footer />

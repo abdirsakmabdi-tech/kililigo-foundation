@@ -1,13 +1,34 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const partners = [
-  { name: 'UNHCR', fullName: 'United Nations High Commissioner for Refugees' },
-  { name: 'UNICEF', fullName: 'United Nations Children\'s Fund' },
-  { name: 'MSF', fullName: 'Médecins Sans Frontières' },
-  { name: 'USAID', fullName: 'United States Agency for International Development' },
-  { name: 'IKEA Foundation', fullName: 'IKEA Foundation' },
+  {
+    name: 'UNHCR',
+    fullName: 'United Nations High Commissioner for Refugees',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/UNHCR.svg/512px-UNHCR.svg.png',
+  },
+  {
+    name: 'UNICEF',
+    fullName: "United Nations Children's Fund",
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/5/57/UNICEF_Logo.png',
+  },
+  {
+    name: 'MSF',
+    fullName: 'Médecins Sans Frontières',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/MSF_International_logo_2.png',
+  },
+  {
+    name: 'USAID',
+    fullName: 'United States Agency for International Development',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Usaid_logo.jpg',
+  },
+  {
+    name: 'IKEA Foundation',
+    fullName: 'IKEA Foundation',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/IKEA_Foundation_Logo.png',
+  },
 ]
 
 export default function PartnersStrip() {
@@ -29,18 +50,20 @@ export default function PartnersStrip() {
           className="overflow-hidden"
         >
           <div className="flex animate-scroll">
-            <div className="flex gap-16 md:gap-24 flex-shrink-0">
+            <div className="flex items-center gap-16 md:gap-24 flex-shrink-0">
               {[...partners, ...partners].map((partner, index) => (
                 <div
                   key={`${partner.name}-${index}`}
-                  className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  className="flex items-center justify-center h-14 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                 >
-                  <span
-                    className="text-xl md:text-2xl font-bold text-gray-600 whitespace-nowrap"
+                  <Image
+                    src={partner.logo}
+                    alt={partner.fullName}
+                    width={140}
+                    height={56}
+                    className="h-12 w-auto object-contain"
                     title={partner.fullName}
-                  >
-                    {partner.name}
-                  </span>
+                  />
                 </div>
               ))}
             </div>

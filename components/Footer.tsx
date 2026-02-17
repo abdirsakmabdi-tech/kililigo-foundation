@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Footer() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
@@ -31,10 +32,13 @@ export default function Footer() {
             className="lg:col-span-2"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-card bg-primary flex items-center justify-center">
-                <span className="text-white font-bold text-lg">KF</span>
-              </div>
-              <span className="font-bold text-lg">Kililigo Foundation</span>
+              <Image
+                src="/logo.png"
+                alt="Kililigo Foundation"
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+              />
             </div>
             <p className="text-white/80 leading-relaxed mb-6 max-w-xl">
               Kililigo Foundation is a Somalia-based NGO supporting vulnerable communities
