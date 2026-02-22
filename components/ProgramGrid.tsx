@@ -224,7 +224,6 @@ export default function ProgramGrid() {
           </div>
         </div>
       </div>
-      </div>
     </section>
   )
 }
