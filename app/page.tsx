@@ -1,6 +1,5 @@
 import Hero from '@/components/Hero'
 import HeroIntro from '@/components/HeroIntro'
-import MissionVision from '@/components/MissionVision'
 import ProgramGrid from '@/components/ProgramGrid'
 import CEOMessage from '@/components/CEOMessage'
 import ImpactCounter from '@/components/ImpactCounter'
@@ -12,7 +11,6 @@ export default function Home() {
     <>
       <Hero />
       <HeroIntro />
-      <MissionVision />
       <ProgramGrid />
       <CEOMessage />
       <ImpactCounter />
