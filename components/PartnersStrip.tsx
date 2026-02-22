@@ -85,9 +85,9 @@ export default function PartnersStrip() {
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24">
 
           {/* LEFT — sticky heading */}
-          <div className="md:w-1/3 md:sticky md:top-32 md:self-start">
+          <div className="md:w-1/3 md:sticky md:top-32 md:self-start text-center md:text-left">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-sans leading-[1.05] uppercase">
-              Our<br />Partners.
+              Our Partners.
             </h2>
           </div>
 

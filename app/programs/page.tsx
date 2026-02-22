@@ -99,14 +99,17 @@ export default function ProgramsPage() {
                 <div className="absolute inset-0 z-[2] flex flex-col justify-between p-6">
                   {/* Category badge */}
                   <div>
-                    <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold uppercase tracking-wider">
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-secondary/70 text-white/90 text-xs font-bold uppercase tracking-wider">
                       {program.category}
                     </span>
                   </div>
-                  {/* Title & description */}
+                  {/* Title, description & button */}
                   <div>
                     <h3 className="text-lg font-bold text-white font-sans mb-2 leading-snug">{program.title}</h3>
-                    <p className="text-white/80 text-sm leading-relaxed font-sans">{program.description}</p>
+                    <p className="text-white/80 text-sm leading-relaxed font-sans mb-4 line-clamp-3">{program.description}</p>
+                    <span className="inline-flex items-center justify-center h-9 px-4 rounded-full bg-primary text-white text-xs font-semibold group-hover:bg-primary/90 transition-colors">
+                      Read more
+                    </span>
                   </div>
                 </div>
               </div>

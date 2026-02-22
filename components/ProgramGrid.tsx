@@ -128,18 +128,21 @@ export default function ProgramGrid() {
         </div>
         <div className="grid grid-cols-1 gap-5">
           {programs.map((program, index) => (
-            <Link key={index} href="#programs" className="group block">
-              <div className={`relative h-[280px] rounded-3xl overflow-hidden bg-gradient-to-br ${program.gradient}`}>
+            <Link key={index} href="/programs" className="group block">
+              <div className={`relative h-[340px] rounded-3xl overflow-hidden bg-gradient-to-br ${program.gradient}`}>
                 <div className="absolute inset-0">
                   <Image src={program.image} alt="" fill className="object-cover" sizes="100vw" />
                 </div>
-                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/55 to-black/25" />
-                <div className="absolute inset-x-0 bottom-0 z-[2] p-5">
-                  <span className="inline-flex items-center w-fit px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider mb-2">
+                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/95 via-black/50 to-black/20" />
+                <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col justify-end p-5 pb-6 pt-12">
+                  <span className="inline-flex items-center w-fit px-3 py-1 rounded-full bg-secondary/70 text-white/90 text-xs font-bold uppercase tracking-wider mb-2">
                     {program.category}
                   </span>
-                  <h3 className="text-base font-bold text-white leading-snug font-sans mb-1">{program.title}</h3>
-                  <p className="text-gray-300 text-xs leading-relaxed font-sans line-clamp-2">{program.description}</p>
+                  <h3 className="text-base font-bold text-white leading-snug font-sans mb-1 line-clamp-2">{program.title}</h3>
+                  <p className="text-gray-300 text-xs leading-relaxed font-sans line-clamp-2 mb-3">{program.description}</p>
+                  <span className="inline-flex items-center justify-center w-fit h-9 px-4 rounded-full bg-primary text-white text-xs font-semibold group-hover:bg-primary/90 transition-colors">
+                    Read more
+                  </span>
                 </div>
               </div>
             </Link>
@@ -196,7 +199,7 @@ export default function ProgramGrid() {
                       <div className="absolute inset-0 z-[2] flex flex-col p-4 md:p-5 pb-3 md:pb-4">
                         {/* Category at top - left-aligned with content */}
                         <div className="pl-4 mb-[100px] shrink-0">
-                          <span className="inline-flex items-center w-fit px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold uppercase tracking-wider">
+                          <span className="inline-flex items-center w-fit px-3 py-1.5 rounded-lg bg-secondary/70 text-white/90 text-xs font-bold uppercase tracking-wider">
                             {program.category}
                           </span>
                         </div>

@@ -48,7 +48,7 @@ export default function CoreValues() {
           {/* LEFT — sticky heading */}
           <div className="md:w-1/3 md:sticky md:top-32 md:self-start text-center md:text-left">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-sans leading-[1.05] uppercase">
-              Our<br />Core<br />Values.
+              Our Core Values.
             </h2>
           </div>
 
