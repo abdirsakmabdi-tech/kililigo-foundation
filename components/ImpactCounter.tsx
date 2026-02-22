@@ -4,10 +4,12 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 
 const stats = [
-  { value: 1000, suffix: '+', label: 'People Assisted', description: 'Individuals reached through direct humanitarian aid' },
-  { value: 30,   suffix: '+', label: 'Emergency Responses', description: 'Rapid interventions during crises and disasters' },
-  { value: 3,    suffix: '',  label: 'Health Centers Built', description: 'Purpose-built facilities serving local communities' },
-  { value: 8,    suffix: '',  label: 'Schools Supported', description: 'Refugee and community schools receiving ongoing support' },
+  { value: 1000, suffix: '+', label: 'People Assisted', large: true },
+  { value: 30, suffix: '+', label: 'Emergency Responses', large: false },
+  { value: 3, suffix: '', label: 'Health Centers Built', large: false },
+  { value: 8, suffix: '', label: 'Schools Supported', large: false },
+  { value: 50, suffix: '+', label: 'Communities Reached', large: false },
+  { value: 5, suffix: '', label: 'Years of Service', large: false },
 ]
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -36,69 +38,70 @@ export default function ImpactCounter() {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
 
+  const [largeStat, ...smallStats] = stats
+
   return (
     <section
       id="impact"
       ref={sectionRef}
-      className="mt-12 md:mt-16 bg-secondary text-white overflow-hidden"
+      className="py-20 md:py-28 overflow-hidden bg-[#FDF5ED]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Top label + heading */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-20">
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="text-primary text-base font-bold uppercase tracking-widest mb-3 font-sans"
-            >
-              Our Impact
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white font-sans leading-tight max-w-xl"
-            >
-              Real change,<br />measurable results.
-            </motion.h2>
-          </div>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white/90 text-sm md:text-base font-sans max-w-xs leading-relaxed"
-          >
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="mb-12 md:mb-16"
+        >
+          <p className="text-primary text-sm font-bold uppercase tracking-widest mb-2 font-sans">Our Impact</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-sans leading-tight">
+            Real change, measurable results.
+          </h2>
+          <p className="mt-4 text-gray-600 text-sm md:text-base font-sans max-w-xl">
             Numbers that reflect the lives touched and communities strengthened across Somalia.
-          </motion.p>
-        </div>
+          </p>
+        </motion.div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/20 rounded-2xl overflow-hidden">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-              className="bg-secondary px-5 py-8 md:px-8 md:py-10 flex flex-col gap-3 md:gap-4"
-            >
-              {/* Number */}
-              <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-sans tracking-tight">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+        {/* Cards grid — 1 large left + 5 small right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+          {/* Large card — left, spans 2 rows on desktop */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-4 lg:row-span-2"
+          >
+            <div className="h-full min-h-[200px] lg:min-h-[320px] rounded-[2rem] bg-[#5C2A2A] p-6 md:p-8 flex flex-col justify-end">
+              <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold text-primary/90 tracking-tight mb-3">
+                <AnimatedCounter value={largeStat.value} suffix={largeStat.suffix} />
               </p>
+              <p className="text-white/90 font-sans text-base md:text-lg font-medium">
+                {largeStat.label}
+              </p>
+            </div>
+          </motion.div>
 
-              {/* Divider */}
-              <div className="w-8 h-px bg-primary" />
-
-              {/* Label + description */}
-              <div>
-                <p className="text-white font-bold font-sans text-base mb-1">{stat.label}</p>
-                <p className="text-white/70 font-sans text-sm leading-relaxed">{stat.description}</p>
-              </div>
-            </motion.div>
-          ))}
+          {/* 5 smaller cards — 2 on top row, 3 on bottom row */}
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-5">
+            {smallStats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.15 + i * 0.05 }}
+                className={`min-h-[160px] md:min-h-[150px] rounded-[2rem] bg-[#5C2A2A] p-5 md:p-6 flex flex-col justify-end ${i < 2 ? 'md:col-span-3' : 'md:col-span-2'}`}
+              >
+                <p className="text-4xl md:text-5xl font-serif font-bold text-primary/90 tracking-tight mb-2">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </p>
+                <p className="text-white/90 font-sans text-sm font-medium">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
       </div>
