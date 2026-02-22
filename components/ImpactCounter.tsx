@@ -59,7 +59,7 @@ export default function ImpactCounter() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl md:text-6xl font-bold text-white font-sans leading-tight max-w-xl"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white font-sans leading-tight max-w-xl"
             >
               Real change,<br />measurable results.
             </motion.h2>
@@ -82,10 +82,10 @@ export default function ImpactCounter() {
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-              className="bg-secondary px-8 py-10 flex flex-col gap-4"
+              className="bg-secondary px-5 py-8 md:px-8 md:py-10 flex flex-col gap-3 md:gap-4"
             >
               {/* Number */}
-              <p className="text-5xl md:text-6xl font-bold text-white font-sans tracking-tight">
+              <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-sans tracking-tight">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </p>
 

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import SearchModal from '@/components/SearchModal'
 
 const navLinks = [
   { href: '/about', label: 'About Us' },
@@ -12,6 +13,7 @@ const navLinks = [
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100">
@@ -38,11 +40,24 @@ export default function Navigation() {
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 shrink-0">
-            <Link href="#donate" className="px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
+          <div className="hidden md:flex items-center gap-3 shrink-0">
+            {/* Search button */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-colors"
+              aria-label="Search"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
+            </button>
+
+            <Link href="/contact" className="px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
               Contact Us
             </Link>
           </div>
+
+          <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-800">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +78,7 @@ export default function Navigation() {
                     {link.label}
                   </Link>
                 ))}
-                <Link href="#donate" onClick={() => setMobileMenuOpen(false)} className="inline-block mt-2 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
+                <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="inline-block mt-2 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
                   Contact Us
                 </Link>
               </div>

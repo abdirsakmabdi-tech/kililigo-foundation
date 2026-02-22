@@ -30,6 +30,20 @@
   animation-play-state: paused;
 }
 
+@keyframes partners-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-partners-scroll {
+  animation: partners-scroll 28s linear infinite;
+  width: max-content;
+}
+
 /* Hide scrollbar for carousel */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;

@@ -4,7 +4,7 @@ import ProgramGrid from '@/components/ProgramGrid'
 import CEOMessage from '@/components/CEOMessage'
 import ImpactCounter from '@/components/ImpactCounter'
 import PartnersStrip from '@/components/PartnersStrip'
-import DonateBanner from '@/components/DonateBanner'
+import CoreValues from '@/components/CoreValues'
 
 export default function Home() {
   return (
@@ -14,8 +14,8 @@ export default function Home() {
       <ProgramGrid />
       <CEOMessage />
       <ImpactCounter />
+      <CoreValues />
       <PartnersStrip />
-      <DonateBanner />
     </>
   )
 }
