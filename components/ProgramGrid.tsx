@@ -67,6 +67,10 @@ export default function ProgramGrid() {
     const carousel = scrollRef.current
     if (!wrapper || !carousel) return
 
+    // Only enable scroll-driven carousel on desktop (pointer: fine = mouse)
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
+    if (isTouchDevice) return
+
     const windowHeight = () => window.innerHeight
     const journeyPx = () => windowHeight() * (SCROLL_JOURNEY_VH / 100)
 
@@ -74,7 +78,6 @@ export default function ProgramGrid() {
       const rect = wrapper.getBoundingClientRect()
       const scrollable = carousel.scrollWidth - carousel.clientWidth
       if (scrollable <= 0) return
-
       const journey = journeyPx()
       const progress = Math.max(0, Math.min(1, -rect.top / journey))
       carousel.scrollLeft = progress * scrollable
@@ -100,48 +103,12 @@ export default function ProgramGrid() {
       requestAnimationFrame(() => window.scrollTo(0, newScrollY))
     }
 
-    let lastTouchY = 0
-    const handleTouchStart = (e: Event) => {
-      const ev = e as TouchEvent
-      if (ev.touches.length === 1) lastTouchY = ev.touches[0].clientY
-    }
-    const handleTouchMove = (e: Event) => {
-      const ev = e as TouchEvent
-      if (ev.touches.length !== 1) return
-      const rect = wrapper.getBoundingClientRect()
-      const inPinZone = rect.top <= 0 && rect.bottom > 0
-      if (!inPinZone) return
-
-      const journey = journeyPx()
-      const progress = Math.max(0, Math.min(1, -rect.top / journey))
-      const touchY = ev.touches[0].clientY
-      const deltaY = lastTouchY - touchY
-      lastTouchY = touchY
-
-      if (progress <= 0 && deltaY < 0) return
-      if (progress >= 1 && deltaY > 0) return
-
-      const wrapperTop = rect.top + window.scrollY
-      const scrollMin = wrapperTop
-      const scrollMax = wrapperTop + journey
-      const newScrollY = Math.max(scrollMin, Math.min(scrollMax, window.scrollY + deltaY))
-      if (newScrollY !== window.scrollY) {
-        ev.preventDefault()
-        window.scrollTo(0, newScrollY)
-      }
-    }
-
-    const stickyEl = wrapper.querySelector('.sticky') ?? wrapper
-    stickyEl.addEventListener('touchstart', handleTouchStart, { passive: true })
-    stickyEl.addEventListener('touchmove', handleTouchMove, { passive: false })
     window.addEventListener('scroll', updateCarouselFromScroll, { passive: true })
     window.addEventListener('resize', updateCarouselFromScroll)
     window.addEventListener('wheel', handleWheel, { passive: false, capture: true })
     updateCarouselFromScroll()
 
     return () => {
-      stickyEl.removeEventListener('touchstart', handleTouchStart)
-      stickyEl.removeEventListener('touchmove', handleTouchMove)
       window.removeEventListener('scroll', updateCarouselFromScroll)
       window.removeEventListener('resize', updateCarouselFromScroll)
       window.removeEventListener('wheel', handleWheel, { capture: true })
@@ -150,9 +117,40 @@ export default function ProgramGrid() {
 
   return (
     <section id="programs" className="bg-cream">
+      {/* Mobile: normal vertical scroll layout */}
+      <div className="md:hidden py-12 px-4">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-secondary mb-4">Our Core Programs</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm">
+            Comprehensive initiatives designed to support vulnerable communities
+            and promote sustainable development across Somalia.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-5">
+          {programs.map((program, index) => (
+            <Link key={index} href="#programs" className="group block">
+              <div className={`relative h-[280px] rounded-3xl overflow-hidden bg-gradient-to-br ${program.gradient}`}>
+                <div className="absolute inset-0">
+                  <Image src={program.image} alt="" fill className="object-cover" sizes="100vw" />
+                </div>
+                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/55 to-black/25" />
+                <div className="absolute inset-x-0 bottom-0 z-[2] p-5">
+                  <span className="inline-flex items-center w-fit px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider mb-2">
+                    {program.category}
+                  </span>
+                  <h3 className="text-base font-bold text-white leading-snug font-sans mb-1">{program.title}</h3>
+                  <p className="text-gray-300 text-xs leading-relaxed font-sans line-clamp-2">{program.description}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: scroll-driven horizontal carousel */}
       <div
         ref={wrapperRef}
-        className="relative"
+        className="relative hidden md:block"
         style={{ height: `${SCROLL_JOURNEY_VH}vh` }}
       >
         <div className="sticky top-0 left-0 right-0 h-screen flex flex-col justify-center bg-cream py-12">
@@ -169,7 +167,7 @@ export default function ProgramGrid() {
 
             <div
               ref={scrollRef}
-              className="overflow-x-auto overflow-y-visible min-w-0 flex-1 snap-x snap-mandatory scroll-smooth pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 touch-pan-x scrollbar-hide min-h-[340px] md:min-h-[400px]"
+              className="overflow-x-auto overflow-y-visible min-w-0 flex-1 snap-x snap-mandatory scroll-smooth pb-6 sm:mx-0 sm:px-0 scrollbar-hide min-h-[340px] md:min-h-[400px]"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               <div className="flex gap-5 md:gap-6 min-w-max items-start pr-8 md:pr-12">
@@ -225,6 +223,7 @@ export default function ProgramGrid() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   )

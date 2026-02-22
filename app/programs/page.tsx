@@ -139,7 +139,7 @@ export default function ProgramsPage() {
                 <span className="text-lg md:text-xl font-semibold font-sans text-white">
                   {item.label}
                 </span>
-                <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+                <div className="hidden lg:flex items-center gap-2 shrink-0 flex-wrap justify-end">
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
