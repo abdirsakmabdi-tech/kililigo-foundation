@@ -11,7 +11,7 @@ const words = intro.split(' ')
 
 export default function HeroIntro() {
   const ref = useRef<HTMLParagraphElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.6, rootMargin: "0px 0px -15% 0px" })
+  const isInView = useInView(ref, { once: true, amount: 0.6 })
 
   return (
     <section className="relative py-14 md:py-24 overflow-hidden">
