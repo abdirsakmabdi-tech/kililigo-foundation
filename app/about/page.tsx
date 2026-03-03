@@ -14,8 +14,8 @@ const vision = 'Kililigo Foundation envisions a just, compassionate, and resilie
 
 const leaders = [
   { name: 'Bashir Said Ismail', role: 'Executive Director', photo: '/leader-bashir.png' },
-  { name: 'Mohamed Abullahi Said', role: 'Board Chair', photo: null },
-  { name: 'Fatumo Dirie Nor', role: 'Finance and Operation Officer', photo: null },
+  { name: 'Mohamed Abullahi Said', role: 'Board Chair', photo: '/leader-mohamed-abullahi.png' },
+  { name: 'Abdukadir Haji Mohamed', role: 'Finance and Operation Officer', photo: '/leader-abdukadir-haji.png' },
   { name: 'Mohamed Abdi Haji', role: 'Program Coordinator', photo: null },
   { name: 'Abdiqadir Haji Mohamed', role: 'Project Officer', photo: null },
   { name: 'Said Dirac', role: 'Democracy Consultant', photo: null },

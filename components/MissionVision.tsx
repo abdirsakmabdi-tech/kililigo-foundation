@@ -10,8 +10,8 @@ export default function MissionVision() {
         <div className="grid md:grid-cols-[minmax(0,auto)_1fr] gap-8 md:gap-20 lg:gap-32 xl:gap-40 mb-20 md:mb-28">
           <h2 className="text-lg md:text-xl font-semibold text-black font-sans">Our mission</h2>
           <div className="space-y-8 w-full">
-            <p className="text-black font-sans text-lg md:text-xl leading-relaxed w-full">{missionPara1}</p>
-            <p className="text-black font-sans text-lg md:text-xl leading-relaxed w-full">
+            <p className="text-black font-serif text-lg md:text-xl leading-relaxed w-full">{missionPara1}</p>
+            <p className="text-black font-serif text-lg md:text-xl leading-relaxed w-full">
               {missionPara2Main} <span className="text-gray-600">{missionPara2Gray}</span>
             </p>
           </div>
@@ -19,7 +19,7 @@ export default function MissionVision() {
 
         <div className="grid md:grid-cols-[minmax(0,auto)_1fr] gap-8 md:gap-20 lg:gap-32 xl:gap-40">
           <h2 className="text-lg md:text-xl font-semibold text-black font-sans">Our vision</h2>
-          <p className="text-black font-sans text-lg md:text-xl leading-relaxed w-full">{vision}</p>
+          <p className="text-black font-serif text-lg md:text-xl leading-relaxed w-full">{vision}</p>
         </div>
       </div>
     </section>

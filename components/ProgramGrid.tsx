@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -8,223 +7,244 @@ const programs = [
   {
     category: 'Relief',
     title: 'Humanitarian Assistance & Emergency Response',
-    description: 'The organization provides rapid, life-saving support during disasters and conflicts, including emergency food, shelter, and essential WASH services to meet immediate needs and protect dignity.',
+    description: 'We provide rapid, life-saving support during disasters and conflicts, including emergency food, shelter, and essential WASH services to meet immediate needs and protect dignity.',
     image: '/program-humanitarian.png',
     gradient: 'from-orange-600 via-primary to-amber-600',
+    iconColor: '#059669',
   },
   {
     category: 'Health',
     title: 'Health & Nutrition',
-    description: 'The organization delivers accessible primary healthcare, mobile clinic services, maternal and child health programs, nutrition support, and disease prevention initiatives to improve community health outcomes.',
+    description: 'We deliver accessible primary healthcare, mobile clinic services, maternal and child health programs, nutrition support, and disease prevention initiatives to improve community health outcomes.',
     image: '/program-health.png',
     gradient: 'from-emerald-600 via-teal-600 to-secondary',
+    iconColor: '#7c3aed',
   },
   {
     category: 'Education',
     title: 'Education & Child Protection',
-    description: 'The organization supports safe, inclusive education and child protection through learning opportunities, psychosocial support, and safe spaces that promote resilience and child well-being.',
+    description: 'We support safe, inclusive education and child protection through learning opportunities, psychosocial support, and safe spaces that promote resilience and child well-being.',
     image: '/program-education.png',
     gradient: 'from-secondary via-blue-600 to-indigo-600',
+    iconColor: '#2563eb',
   },
   {
     category: 'Rights',
     title: 'Protection & Human Rights',
-    description: 'The organization offers protection and legal support to refugees, IDPs, and vulnerable groups, promoting rights awareness, access to justice, and the prevention of abuse and exploitation.',
+    description: 'We offer protection and legal support to refugees, IDPs, and vulnerable groups, promoting rights awareness, access to justice, and the prevention of abuse and exploitation.',
     image: '/program-protection.png',
     gradient: 'from-indigo-600 via-violet-600 to-purple-700',
+    iconColor: '#0891b2',
   },
   {
     category: 'Empowerment',
     title: "Women's Economic Empowerment",
-    description: "The organization promotes economic self-reliance and gender equality by supporting livelihoods, skills development, and income-generating opportunities, while fostering safe and inclusive environments for women and youth.",
-    image: '/hero-2.png',
+    description: "We promote economic self-reliance and gender equality by supporting livelihoods, skills development, and income-generating opportunities, while fostering safe and inclusive environments for women and youth.",
+    image: '/women-empowerment-bg.png',
     gradient: 'from-pink-600 via-rose-600 to-primary',
+    iconColor: '#dc2626',
   },
   {
     category: 'Youth',
     title: 'Youth Leadership and Civic Engagement',
-    description: 'The organization empowers youth through skills development and meaningful participation in community and public decision-making, enabling them to drive positive change, strengthen social cohesion, and support sustainable development.',
-    image: '/hero-3.png',
+    description: 'We empower youth through skills development and meaningful participation in community and public decision-making, enabling them to drive positive change and strengthen social cohesion.',
+    image: '/youth-leadership-bg.png',
     gradient: 'from-primary via-amber-500 to-yellow-600',
+    iconColor: '#ea580c',
   },
   {
     category: 'Peace',
     title: 'Peacebuilding & Social Cohesion',
-    description: 'The organization strengthens social cohesion through dialogue, reconciliation, conflict prevention, trauma healing, and post-crisis recovery initiatives.',
-    image: '/hero.png',
+    description: 'We strengthen social cohesion through dialogue, reconciliation, conflict prevention, trauma healing, and post-crisis recovery initiatives.',
+    image: '/peacebuilding-bg.png',
     gradient: 'from-green-600 via-emerald-700 to-teal-800',
+    iconColor: '#16a34a',
+  },
+  {
+    category: 'Agro',
+    title: 'Agro and livestock programs',
+    description: 'We believe a strong economy is rooted in strong agriculture. This program empowers Somali farmers and pastoralists to build resilience against climate challenges and market instability.',
+    image: '/agro-card-bg.png',
+    gradient: 'from-amber-600 via-yellow-600 to-green-600',
+    iconColor: '#ca8a04',
   },
 ]
 
-const SCROLL_JOURNEY_VH = 350
+// Icons for program cards (inline SVGs)
+const IconRelief = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+)
+const IconHealth = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+  </svg>
+)
+const IconEducation = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+    <path d="M8 7h8" />
+    <path d="M8 11h8" />
+  </svg>
+)
+const IconRights = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M12 3v18" />
+    <path d="m8 7 4-4 4 4" />
+    <path d="M8 17l4 4 4-4" />
+    <path d="M3 12h2" />
+    <path d="M19 12h2" />
+    <path d="M5 9l2 2" />
+    <path d="M17 9l2 2" />
+    <path d="M5 15l2-2" />
+    <path d="M17 15l2-2" />
+  </svg>
+)
+const IconEmpowerment = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" />
+    <path d="M12 14v4" />
+    <path d="M10 18h4" />
+  </svg>
+)
+const IconYouth = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+)
+const IconPeace = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z" />
+    <path d="M8 12h8" />
+    <path d="M12 8v8" />
+  </svg>
+)
+const IconAgro = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M12 22v-7" />
+    <path d="M5 15v4h14v-4" />
+    <path d="M12 2v2" />
+    <path d="M5 8l7 4 7-4" />
+    <path d="M5 12l7 4 7-4" />
+  </svg>
+)
 
-export default function ProgramGrid() {
-  const wrapperRef = useRef<HTMLDivElement>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
+const cardIcons: Record<string, React.FC> = {
+  Relief: IconRelief,
+  Health: IconHealth,
+  Education: IconEducation,
+  Rights: IconRights,
+  Empowerment: IconEmpowerment,
+  Youth: IconYouth,
+  Peace: IconPeace,
+  Agro: IconAgro,
+}
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current
-    const carousel = scrollRef.current
-    if (!wrapper || !carousel) return
+const FEATURED_CARD_IMAGES: Record<string, string> = {
+  Relief: '/humanitarian-card-bg.png',
+  Health: '/health-card-bg.png',
+  Education: '/education-card-bg.png',
+  Rights: '/protection-card-bg.png',
+  Empowerment: '/women-empowerment-card-bg.png',
+  Youth: '/youth-leadership-card-bg.png',
+  Peace: '/peacebuilding-bg.png',
+  Agro: '/agro-card-bg.png',
+}
 
-    // Only enable scroll-driven carousel on desktop (pointer: fine = mouse)
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
-    if (isTouchDevice) return
+function ProgramCard({ program }: { program: typeof programs[0] }) {
+  const featuredImage = FEATURED_CARD_IMAGES[program.category]
+  const IconComponent = cardIcons[program.category] || IconRelief
 
-    const windowHeight = () => window.innerHeight
-    const journeyPx = () => windowHeight() * (SCROLL_JOURNEY_VH / 100)
+  if (featuredImage) {
+    return (
+      <Link
+        href="/programs"
+        className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full"
+      >
+        {/* 1. Hero image — primary focal point, edge-to-edge */}
+        <div className="relative w-full aspect-[2/1] overflow-hidden">
+          <Image
+            src={featuredImage}
+            alt=""
+            fill
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, 33vw"
+            quality={95}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" aria-hidden />
+          {/* Category badge — secondary label, top-left */}
+          <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-xs font-semibold uppercase tracking-wider text-gray-800">
+            {program.category}
+          </span>
+        </div>
 
-    const updateCarouselFromScroll = () => {
-      const rect = wrapper.getBoundingClientRect()
-      const scrollable = carousel.scrollWidth - carousel.clientWidth
-      if (scrollable <= 0) return
-      const journey = journeyPx()
-      const progress = Math.max(0, Math.min(1, -rect.top / journey))
-      carousel.scrollLeft = progress * scrollable
-    }
-
-    const handleWheel = (e: WheelEvent) => {
-      const rect = wrapper.getBoundingClientRect()
-      const journey = journeyPx()
-      const progress = Math.max(0, Math.min(1, -rect.top / journey))
-
-      if (progress <= 0 && e.deltaY < 0) return
-      if (progress >= 1 && e.deltaY > 0) return
-
-      const wrapperTop = rect.top + window.scrollY
-      const scrollMin = wrapperTop
-      const scrollMax = wrapperTop + journey
-      const newScrollY = Math.max(scrollMin, Math.min(scrollMax, window.scrollY + e.deltaY))
-
-      const inPinZone = rect.top <= 0 && rect.bottom > 0
-      if (!inPinZone) return
-
-      e.preventDefault()
-      requestAnimationFrame(() => window.scrollTo(0, newScrollY))
-    }
-
-    window.addEventListener('scroll', updateCarouselFromScroll, { passive: true })
-    window.addEventListener('resize', updateCarouselFromScroll)
-    window.addEventListener('wheel', handleWheel, { passive: false, capture: true })
-    updateCarouselFromScroll()
-
-    return () => {
-      window.removeEventListener('scroll', updateCarouselFromScroll)
-      window.removeEventListener('resize', updateCarouselFromScroll)
-      window.removeEventListener('wheel', handleWheel, { capture: true })
-    }
-  }, [])
+        {/* 2. Content block — clear separation, Z-pattern flow */}
+        <div className="p-6 flex flex-col flex-grow">
+          {/* 3. Title — strongest text element */}
+          <h3 className="text-2xl font-extrabold text-primary font-sans mb-3 leading-tight border-l-4 border-primary pl-4">
+            {program.title}
+          </h3>
+          {/* 4. Description — supporting body, reduced visual weight */}
+          <p className="text-gray-600 text-[15px] leading-relaxed font-sans line-clamp-3 flex-grow">
+            {program.description}
+          </p>
+          {/* 5. CTA — tertiary but actionable, bottom-aligned */}
+          <span className="mt-6 pt-4 border-t border-gray-100 inline-flex items-center gap-2 text-secondary font-semibold text-sm group-hover:gap-3 transition-all">
+            Learn more
+            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </div>
+      </Link>
+    )
+  }
 
   return (
-    <section id="programs" className="bg-cream">
-      {/* Mobile: normal vertical scroll layout */}
-      <div className="md:hidden py-12 px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-secondary mb-4">Our Core Programs</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-sm">
-            Comprehensive initiatives designed to support vulnerable communities
-            and promote sustainable development across Somalia.
+    <Link href="/programs" className="group flex flex-col bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 h-full">
+      <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-4 flex-shrink-0" style={{ color: program.iconColor }}>
+        <IconComponent />
+      </div>
+      <h3 className="text-lg font-bold text-gray-900 font-sans mb-2 group-hover:text-primary transition-colors">
+        {program.title}
+      </h3>
+      <p className="text-gray-600 text-sm leading-relaxed font-sans flex-grow line-clamp-3">
+        {program.description}
+      </p>
+      <span className="inline-flex items-center gap-1 mt-4 text-secondary font-medium text-sm group-hover:text-secondary/90 transition-colors">
+        Learn more
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </span>
+    </Link>
+  )
+}
+
+export default function ProgramGrid() {
+  return (
+    <section id="programs" className="bg-gray-100 py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section headline */}
+        <div className="mb-10 md:mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-sans">
+            Our Core Programs
+          </h2>
+          <p className="mt-3 text-gray-600 text-base md:text-lg font-sans max-w-2xl mx-auto">
+            Comprehensive initiatives designed to support vulnerable communities and promote sustainable development across Somalia.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-5">
-          {programs.map((program, index) => (
-            <Link key={index} href="/programs" className="group block">
-              <div className={`relative h-[340px] rounded-3xl overflow-hidden bg-gradient-to-br ${program.gradient}`}>
-                <div className="absolute inset-0">
-                  <Image src={program.image} alt="" fill className="object-cover" sizes="100vw" />
-                </div>
-                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/95 via-black/50 to-black/20" />
-                <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col justify-end p-5 pb-6 pt-12">
-                  <span className="inline-flex items-center w-fit px-3 py-1 rounded-full bg-secondary/70 text-white/90 text-xs font-bold uppercase tracking-wider mb-2">
-                    {program.category}
-                  </span>
-                  <h3 className="text-base font-bold text-white leading-snug font-sans mb-1 line-clamp-2">{program.title}</h3>
-                  <p className="text-gray-300 text-xs leading-relaxed font-sans line-clamp-2 mb-3">{program.description}</p>
-                  <span className="inline-flex items-center justify-center w-fit h-9 px-4 rounded-full bg-primary text-white text-xs font-semibold group-hover:bg-primary/90 transition-colors">
-                    Read more
-                  </span>
-                </div>
-              </div>
-            </Link>
+        {/* Program cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+          {programs.map((program) => (
+            <ProgramCard key={program.title} program={program} />
           ))}
-        </div>
-      </div>
-
-      {/* Desktop: scroll-driven horizontal carousel */}
-      <div
-        ref={wrapperRef}
-        className="relative hidden md:block"
-        style={{ height: `${SCROLL_JOURNEY_VH}vh` }}
-      >
-        <div className="sticky top-0 left-0 right-0 h-screen flex flex-col justify-center bg-cream py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col min-h-0">
-            <div className="text-center mb-8 flex-shrink-0">
-              <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-                Our Core Programs
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Comprehensive initiatives designed to support vulnerable communities
-                and promote sustainable development across Somalia.
-              </p>
-            </div>
-
-            <div
-              ref={scrollRef}
-              className="overflow-x-auto overflow-y-visible min-w-0 flex-1 snap-x snap-mandatory scroll-smooth pb-6 sm:mx-0 sm:px-0 scrollbar-hide min-h-[340px] md:min-h-[400px]"
-              style={{ WebkitOverflowScrolling: 'touch' }}
-            >
-              <div className="flex gap-5 md:gap-6 min-w-max items-start pr-8 md:pr-12">
-                {programs.map((program, index) => (
-                  <Link
-                    key={index}
-                    href="#programs"
-                    className="flex-shrink-0 w-[calc(60vw-1.5rem)] min-w-[320px] max-w-[520px] snap-start group transition-transform duration-300 hover:scale-[1.02]"
-                  >
-                    {/* Card container - position relative, overflow-hidden for rounded corners only */}
-                    <div className={`relative h-[340px] md:h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br ${program.gradient} transition-shadow duration-300 group-hover:shadow-xl`}>
-                      {/* Background image - absolute inset-0, object-cover */}
-                      <div className="absolute inset-0">
-                        <Image
-                          src={program.image}
-                          alt=""
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 60vw, 520px"
-                        />
-                      </div>
-                      {/* Dark overlay gradient - darker for better content visibility */}
-                      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/55 to-black/25" />
-
-                      {/* Content - no inner holder, left-aligned, category at top, button always visible */}
-                      <div className="absolute inset-0 z-[2] flex flex-col p-4 md:p-5 pb-3 md:pb-4">
-                        {/* Category at top - left-aligned with content */}
-                        <div className="pl-4 mb-[100px] shrink-0">
-                          <span className="inline-flex items-center w-fit px-3 py-1.5 rounded-lg bg-secondary/70 text-white/90 text-xs font-bold uppercase tracking-wider">
-                            {program.category}
-                          </span>
-                        </div>
-                        {/* Title and description - no scroll on mobile/tablet */}
-                        <div className="min-h-0 overflow-hidden lg:overflow-y-auto pl-4">
-                          <h3 className="text-base md:text-lg font-bold text-white leading-snug font-sans mb-2 line-clamp-2 lg:line-clamp-none">
-                            {program.title}
-                          </h3>
-                          <p className="text-gray-200 text-sm leading-relaxed font-sans mb-3 line-clamp-3 lg:line-clamp-none">
-                            {program.description}
-                          </p>
-                        </div>
-                        {/* Button */}
-                        <div className="shrink-0 pl-4 pt-1">
-                          <span className="inline-flex items-center justify-center h-8 px-4 bg-primary text-white text-xs font-semibold transition-all duration-300 group-hover:bg-primary/90" style={{ borderRadius: '9999px' }}>
-                            Read more
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

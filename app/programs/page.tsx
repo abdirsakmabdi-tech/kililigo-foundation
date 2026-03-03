@@ -1,56 +1,10 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import type { Metadata } from 'next'
+import ProgramsList from '@/components/ProgramsList'
 
 export const metadata: Metadata = {
   title: 'Programs | Kililigo Foundation',
   description: 'Explore the core programs of Kililigo Foundation — from humanitarian assistance to education, health, and peacebuilding across Somalia.',
 }
-
-const programs = [
-  {
-    category: 'Relief',
-    title: 'Humanitarian Assistance & Emergency Response',
-    description: 'The organization provides rapid, life-saving support during disasters and conflicts, including emergency food, shelter, and essential WASH services to meet immediate needs and protect dignity.',
-    image: '/program-humanitarian.png',
-  },
-  {
-    category: 'Health',
-    title: 'Health & Nutrition',
-    description: 'The organization delivers accessible primary healthcare, mobile clinic services, maternal and child health programs, nutrition support, and disease prevention initiatives to improve community health outcomes.',
-    image: '/program-health.png',
-  },
-  {
-    category: 'Education',
-    title: 'Education & Child Protection',
-    description: 'The organization supports safe, inclusive education and child protection through learning opportunities, psychosocial support, and safe spaces that promote resilience and child well-being.',
-    image: '/program-education.png',
-  },
-  {
-    category: 'Rights',
-    title: 'Protection & Human Rights',
-    description: 'The organization offers protection and legal support to refugees, IDPs, and vulnerable groups, promoting rights awareness, access to justice, and the prevention of abuse and exploitation.',
-    image: '/program-protection.png',
-  },
-  {
-    category: 'Empowerment',
-    title: "Women's Economic Empowerment",
-    description: "The organization promotes economic self-reliance and gender equality by supporting livelihoods, skills development, and income-generating opportunities, while fostering safe and inclusive environments for women and youth.",
-    image: '/hero-2.png',
-  },
-  {
-    category: 'Youth',
-    title: 'Youth Leadership and Civic Engagement',
-    description: 'The organization empowers youth through skills development and meaningful participation in community and public decision-making, enabling them to drive positive change, strengthen social cohesion, and support sustainable development.',
-    image: '/hero-3.png',
-  },
-  {
-    category: 'Peace',
-    title: 'Peacebuilding & Social Cohesion',
-    description: 'The organization strengthens social cohesion through dialogue, reconciliation, conflict prevention, trauma healing, and post-crisis recovery initiatives.',
-    image: '/hero.png',
-  },
-]
 
 export default function ProgramsPage() {
   return (
@@ -68,7 +22,7 @@ export default function ProgramsPage() {
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white font-sans">Programs</h1>
         </div>
 
-        {/* Wave divider */}
+        {/* Wave divider — transitions blue hero into white program section */}
         <div className="relative w-full leading-none">
           <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
             <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
@@ -76,47 +30,8 @@ export default function ProgramsPage() {
         </div>
       </div>
 
-      {/* Programs grid */}
-      <div className="bg-white pt-4 pb-16 md:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-black font-sans mb-3">Our Programs</h2>
-          <p className="text-gray-400 text-base font-sans mb-10">Comprehensive initiatives designed to support vulnerable communities and promote sustainable development across Somalia.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {programs.map((program) => (
-              <div key={program.title} className="group relative h-[380px] rounded-3xl overflow-hidden">
-                {/* Background image */}
-                <Image
-                  src={program.image}
-                  alt={program.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20 z-[1]" />
-
-                {/* Content */}
-                <div className="absolute inset-0 z-[2] flex flex-col justify-between p-6">
-                  {/* Category badge */}
-                  <div>
-                    <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-secondary/70 text-white/90 text-xs font-bold uppercase tracking-wider">
-                      {program.category}
-                    </span>
-                  </div>
-                  {/* Title, description & button */}
-                  <div>
-                    <h3 className="text-lg font-bold text-white font-sans mb-2 leading-snug">{program.title}</h3>
-                    <p className="text-white/80 text-sm leading-relaxed font-sans mb-4 line-clamp-3">{program.description}</p>
-                    <span className="inline-flex items-center justify-center h-9 px-4 rounded-full bg-primary text-white text-xs font-semibold group-hover:bg-primary/90 transition-colors">
-                      Read more
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Our Programs */}
+      <ProgramsList />
 
       {/* Target Beneficiaries */}
       <div className="bg-secondary py-16 md:py-24">

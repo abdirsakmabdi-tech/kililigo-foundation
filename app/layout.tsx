@@ -1,12 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
+import { Source_Serif_4 } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
-const inter = Inter({
+const generalSans = localFont({
+  src: '../GeneralSans_Complete/Fonts/WEB/fonts/GeneralSans-Variable.woff2',
+  variable: '--font-general-sans',
+  display: 'swap',
+})
+
+const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-source-serif',
 })
 
 export const metadata: Metadata = {
@@ -20,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${generalSans.variable} ${sourceSerif.variable}`}>
       <body className="font-sans bg-cream text-gray-800 min-h-screen">
         <Navigation />
         <main>{children}</main>

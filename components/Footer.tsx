@@ -39,11 +39,11 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <Image
-                src="/logo.png"
+                src="/main-logo.png"
                 alt="Kililigo Foundation"
                 width={140}
                 height={40}
-                className="h-8 w-auto brightness-0 invert"
+                className="h-4 w-auto brightness-0 invert"
               />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6">
@@ -53,8 +53,6 @@ export default function Footer() {
             </p>
             <div className="space-y-1 text-sm text-white/50">
               <p>HQ: Haji Ali Road, Hantiwadag, Garowe, Somalia.</p>
-              <p>Executive Director: Bashir Said Ismail</p>
-              <p>Board Chair: Mohamed Abullahi Said</p>
             </div>
           </div>
 

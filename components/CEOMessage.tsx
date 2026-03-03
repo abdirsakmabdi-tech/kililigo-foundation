@@ -23,8 +23,8 @@ export default function CEOMessage() {
           <div className="relative z-10 -mt-24 mx-4 mb-4 bg-[#005EB8] rounded-2xl p-5 shadow-xl space-y-3">
             <h2 className="text-xl font-bold text-white font-sans">Message from Our CEO</h2>
             <div className="space-y-3">
-              <p className="text-white/95 text-sm leading-snug font-sans">{message1}</p>
-              <p className="text-white/95 text-sm leading-snug font-sans">{message2}</p>
+              <p className="text-white/95 text-sm leading-snug font-serif">{message1}</p>
+              <p className="text-white/95 text-sm leading-snug font-serif">{message2}</p>
             </div>
             <div className="pt-2">
               <p className="font-bold text-white text-base font-sans">Bashir Said Ismail</p>
@@ -51,8 +51,8 @@ export default function CEOMessage() {
           <div className="absolute right-4 lg:right-12 top-1/2 -translate-y-1/2 w-[50%] max-w-xl z-10 bg-[#005EB8] rounded-2xl shadow-xl p-5 lg:p-6 space-y-3">
             <h2 className="text-xl lg:text-2xl font-bold text-white font-sans">Message from Our CEO</h2>
             <div className="space-y-3">
-              <p className="text-white/95 text-sm lg:text-base leading-snug font-sans">{message1}</p>
-              <p className="text-white/95 text-sm lg:text-base leading-snug font-sans">{message2}</p>
+              <p className="text-white/95 text-sm lg:text-base leading-snug font-serif">{message1}</p>
+              <p className="text-white/95 text-sm lg:text-base leading-snug font-serif">{message2}</p>
             </div>
             <div className="pt-1">
               <p className="font-bold text-white text-base font-sans">Bashir Said Ismail</p>

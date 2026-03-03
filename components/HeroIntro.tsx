@@ -43,11 +43,15 @@ export default function HeroIntro() {
             ))}
           </p>
           <Link
-            href="#about"
-            className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-full border-2 border-white text-white text-sm font-semibold font-sans hover:bg-white hover:text-secondary transition-colors"
+            href="/about"
+            className="inline-flex items-center gap-3 mt-6 min-w-[140px] justify-center px-2 py-2 rounded-full bg-primary/80 backdrop-blur-sm text-white font-medium font-sans text-sm hover:bg-primary transition-all duration-200 border border-primary/30"
           >
-            About
-            <span aria-hidden>→</span>
+            About Us
+            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-gray-900 shrink-0">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
           </Link>
         </div>
       </div>

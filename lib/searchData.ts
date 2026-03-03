@@ -50,7 +50,7 @@ export const searchData: SearchItem[] = [
     category: 'Leadership',
   },
   {
-    title: 'Fatumo Dirie Nor — Finance and Operation Officer',
+    title: 'Abdukadir Haji Mohamed — Finance and Operation Officer',
     description: 'Oversees financial management and operational activities at Kililigo Foundation.',
     href: '/about',
     category: 'Leadership',

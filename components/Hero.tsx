@@ -7,6 +7,8 @@ const heroImages = [
   '/hero.png',
   '/hero-2.png',
   '/hero-3.png',
+  '/hero-agro.png',
+  '/hero-agro-2.png',
 ]
 
 const SLIDE_INTERVAL = 5000
@@ -52,28 +54,30 @@ export default function Hero() {
       <div className="relative z-20 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
 
         {/* Headline */}
-        <h1 className="font-bold font-sans text-white leading-[1.35] mb-6 text-[32px] sm:text-[42px] md:text-[52px]">
+        <h1 className="font-bold font-sans text-white leading-[1.2] mb-6 text-[40px] sm:text-[56px] md:text-[60px] lg:text-[64px] tracking-tight">
           Empowering{' '}
-          <span className="italic font-light text-white/80">Communities,</span>
+          <span className="text-white/95">Communities,</span>
           <br />
           Restoring{' '}
           <span className="text-primary">Dignity.</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-white/80 text-sm md:text-base lg:text-lg font-sans font-normal max-w-xl mb-8 md:mb-10 leading-relaxed px-2 md:px-0">
+        <p className="text-white/70 text-sm md:text-base lg:text-lg font-sans font-normal max-w-xl mb-8 md:mb-10 leading-relaxed px-2 md:px-0">
           Timely humanitarian assistance, recovery, and social justice across Somalia.
         </p>
 
         {/* CTA */}
         <Link
           href="/programs"
-          className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-semibold font-sans text-sm hover:bg-primary/90 transition-colors duration-200"
+          className="inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-primary/80 backdrop-blur-sm text-white font-medium font-sans text-sm hover:bg-primary transition-all duration-200 border border-primary/30"
         >
           Our Programs
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-gray-900">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
         </Link>
       </div>
 

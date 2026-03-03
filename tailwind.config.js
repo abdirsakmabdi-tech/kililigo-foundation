@@ -14,7 +14,8 @@ module.exports = {
         'footer-dark': '#003366',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-general-sans)', 'General Sans', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-source-serif)', 'Source Serif Pro', 'Georgia', 'serif'],
       },
       borderRadius: {
         card: '12px',
