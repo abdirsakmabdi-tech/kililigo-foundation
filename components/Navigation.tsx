@@ -26,7 +26,7 @@ const navLinks: NavLink[] = [
 
 const socialLinks = [
   { href: 'https://www.linkedin.com', label: 'LinkedIn' },
-  { href: 'https://www.facebook.com', label: 'Facebook' },
+  { href: 'https://www.facebook.com/profile.php?id=61587605410036', label: 'Facebook' },
   { href: 'https://www.twitter.com', label: 'Twitter / X' },
 ]
 
