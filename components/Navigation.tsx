@@ -161,11 +161,11 @@ export default function Navigation() {
           <div className="flex items-center justify-between px-6 sm:px-10 py-5">
             <Link href="/" onClick={closeMobileMenu}>
               <Image
-                src="/logo svg.svg"
+                src="/Mobile SVG.svg"
                 alt="Kililigo Foundation"
-                width={160}
-                height={160}
-                className="h-12 w-auto brightness-0 invert"
+                width={240}
+                height={240}
+                className="h-20 w-auto"
               />
             </Link>
             <div className="flex items-center gap-2">

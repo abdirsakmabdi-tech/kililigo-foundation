@@ -39,11 +39,11 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <Image
-                src="/logo svg.svg"
+                src="/Mobile SVG.svg"
                 alt="Kililigo Foundation"
                 width={160}
                 height={160}
-                className="h-14 w-auto brightness-0 invert"
+                className="h-20 w-auto"
               />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6">
