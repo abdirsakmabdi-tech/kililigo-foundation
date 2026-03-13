@@ -17,10 +17,6 @@ export default function LeadershipSlider({ leaders }: { leaders: Leader[] }) {
       {/* Header */}
       <div className="flex items-start justify-between mb-10">
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="w-2.5 h-2.5 rounded-full bg-primary inline-block" />
-            <span className="text-sm font-medium text-gray-600 font-sans">Kililigo Foundation</span>
-          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-sans">Meet our leadership team.</h2>
         </div>
         <div className="hidden sm:flex items-center gap-2 mt-2">
