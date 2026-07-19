@@ -3,16 +3,11 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const values = [
-  { title: 'Humanity', desc: 'Respect for human life, dignity, and well-being' },
-  { title: 'Neutrality', desc: 'Non-alignment with political, ethnic, or religious interests' },
-  { title: 'Impartiality', desc: 'Assistance based solely on need' },
-  { title: 'Independence', desc: 'Autonomous humanitarian action' },
-  { title: 'Accountability', desc: 'Transparency, ethical management, and community participation' },
-  { title: 'Integrity', desc: 'Zero tolerance for corruption and misconduct' },
-  { title: 'Respect', desc: 'Cultural sensitivity, inclusion, and human rights protection' },
-  { title: 'Empowerment', desc: 'Strengthening local capacity and sustainable solutions' },
-]
+export type CoreValueItem = {
+  id: string
+  title: string
+  description: string
+}
 
 function ValueCard({ title, desc }: { title: string; desc: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -39,26 +34,24 @@ function ValueCard({ title, desc }: { title: string; desc: string }) {
   )
 }
 
-export default function CoreValues() {
+export default function CoreValues({ values }: { values: CoreValueItem[] }) {
+  if (values.length === 0) return null
+
   return (
     <div className="bg-[#eef2ef] py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24">
-
-          {/* LEFT — sticky heading */}
           <div className="md:w-1/3 md:sticky md:top-32 md:self-start text-center md:text-left">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-sans leading-[1.05] uppercase">
               Our Core Values.
             </h2>
           </div>
 
-          {/* RIGHT — scrolling cards */}
           <div className="md:w-2/3 flex flex-col gap-4">
             {values.map((value) => (
-              <ValueCard key={value.title} title={value.title} desc={value.desc} />
+              <ValueCard key={value.id} title={value.title} desc={value.description} />
             ))}
           </div>
-
         </div>
       </div>
     </div>

@@ -36,6 +36,27 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Admin CMS (News, Press, Vacancies)
+
+1. Create a free **Neon** database from the Vercel Marketplace and copy `DATABASE_URL`.
+2. Create a **Vercel Blob** store and copy `BLOB_READ_WRITE_TOKEN` (optional for URL-only images).
+3. Copy `.env.example` → `.env.local` and fill in values. Generate `AUTH_SECRET`:
+
+```bash
+openssl rand -base64 32
+```
+
+4. Push the schema and create an admin user:
+
+```bash
+npm run db:push
+npm run db:seed
+```
+
+5. Open [http://localhost:3000/admin/login](http://localhost:3000/admin/login) with `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
+
+Default admin credentials: **`admin@kililigo.org`** / **`Admin@123`** (change these in `.env.local` for production)
+
 ### Build for Production
 
 ```bash

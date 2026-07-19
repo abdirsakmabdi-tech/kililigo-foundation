@@ -1,17 +1,33 @@
 import type { Metadata } from 'next'
+import { asc, eq } from 'drizzle-orm'
 import ProgramsList from '@/components/ProgramsList'
+import { db, isDbConfigured } from '@/lib/db'
+import { programs } from '@/lib/db/schema'
 
 export const metadata: Metadata = {
   title: 'Programs | Kililigo Foundation',
-  description: 'Explore the core programs of Kililigo Foundation — from humanitarian assistance to education, health, and peacebuilding across Somalia.',
+  description:
+    'Explore the core programs of Kililigo Foundation — from humanitarian assistance to education, health, and peacebuilding across Somalia.',
 }
 
-export default function ProgramsPage() {
+export const dynamic = 'force-dynamic'
+
+export default async function ProgramsPage() {
+  const items = isDbConfigured()
+    ? await db
+        .select({
+          id: programs.id,
+          title: programs.title,
+          description: programs.description,
+        })
+        .from(programs)
+        .where(eq(programs.status, 'published'))
+        .orderBy(asc(programs.sortOrder), asc(programs.title))
+    : []
+
   return (
     <div className="pt-16 md:pt-20 bg-white">
-      {/* Hero strip */}
       <div className="relative bg-secondary pb-0 pt-16 md:pt-24">
-        {/* Decorative background circles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -right-24 -top-24 w-[500px] h-[500px] rounded-full bg-white/5" />
           <div className="absolute right-32 top-12 w-[300px] h-[300px] rounded-full bg-white/5" />
@@ -22,7 +38,6 @@ export default function ProgramsPage() {
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white font-sans">Programs</h1>
         </div>
 
-        {/* Wave divider — transitions blue hero into white program section */}
         <div className="relative w-full leading-none">
           <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
             <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
@@ -30,10 +45,8 @@ export default function ProgramsPage() {
         </div>
       </div>
 
-      {/* Our Programs */}
-      <ProgramsList />
+      <ProgramsList programs={items} />
 
-      {/* Target Beneficiaries */}
       <div className="bg-secondary py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 pb-10 border-b border-white/20">
@@ -54,9 +67,7 @@ export default function ProgramsPage() {
                 key={item.label}
                 className="group flex items-center justify-between gap-6 px-5 py-5 rounded-xl transition-colors hover:bg-primary cursor-default"
               >
-                <span className="text-lg md:text-xl font-semibold font-sans text-white">
-                  {item.label}
-                </span>
+                <span className="text-lg md:text-xl font-semibold font-sans text-white">{item.label}</span>
                 <div className="hidden lg:flex items-center gap-2 shrink-0 flex-wrap justify-end">
                   {item.tags.map((tag) => (
                     <span

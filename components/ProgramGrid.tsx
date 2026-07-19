@@ -3,74 +3,14 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-const programs = [
-  {
-    category: 'Relief',
-    title: 'Humanitarian Assistance & Emergency Response',
-    description: 'We provide rapid, life-saving support during disasters and conflicts, including emergency food, shelter, and essential WASH services to meet immediate needs and protect dignity.',
-    image: '/program-humanitarian.png',
-    gradient: 'from-orange-600 via-primary to-amber-600',
-    iconColor: '#059669',
-  },
-  {
-    category: 'Health',
-    title: 'Health & Nutrition',
-    description: 'We deliver accessible primary healthcare, mobile clinic services, maternal and child health programs, nutrition support, and disease prevention initiatives to improve community health outcomes.',
-    image: '/program-health.png',
-    gradient: 'from-emerald-600 via-teal-600 to-secondary',
-    iconColor: '#7c3aed',
-  },
-  {
-    category: 'Education',
-    title: 'Education & Child Protection',
-    description: 'We support safe, inclusive education and child protection through learning opportunities, psychosocial support, and safe spaces that promote resilience and child well-being.',
-    image: '/program-education.png',
-    gradient: 'from-secondary via-blue-600 to-indigo-600',
-    iconColor: '#2563eb',
-  },
-  {
-    category: 'Rights',
-    title: 'Protection & Human Rights',
-    description: 'We offer protection and legal support to refugees, IDPs, and vulnerable groups, promoting rights awareness, access to justice, and the prevention of abuse and exploitation.',
-    image: '/program-protection.png',
-    gradient: 'from-indigo-600 via-violet-600 to-purple-700',
-    iconColor: '#0891b2',
-  },
-  {
-    category: 'Empowerment',
-    title: "Women's Economic Empowerment",
-    description: "We promote economic self-reliance and gender equality by supporting livelihoods, skills development, and income-generating opportunities, while fostering safe and inclusive environments for women and youth.",
-    image: '/women-empowerment-bg.png',
-    gradient: 'from-pink-600 via-rose-600 to-primary',
-    iconColor: '#dc2626',
-  },
-  {
-    category: 'Youth',
-    title: 'Youth Leadership and Civic Engagement',
-    description: 'We empower youth through skills development and meaningful participation in community and public decision-making, enabling them to drive positive change and strengthen social cohesion.',
-    image: '/youth-leadership-bg.png',
-    gradient: 'from-primary via-amber-500 to-yellow-600',
-    iconColor: '#ea580c',
-  },
-  {
-    category: 'Peace',
-    title: 'Peacebuilding & Social Cohesion',
-    description: 'We strengthen social cohesion through dialogue, reconciliation, conflict prevention, trauma healing, and post-crisis recovery initiatives.',
-    image: '/peacebuilding-bg.png',
-    gradient: 'from-green-600 via-emerald-700 to-teal-800',
-    iconColor: '#16a34a',
-  },
-  {
-    category: 'Agro',
-    title: 'Agro and livestock programs',
-    description: 'We believe a strong economy is rooted in strong agriculture. This program empowers Somali farmers and pastoralists to build resilience against climate challenges and market instability.',
-    image: '/agro-card-bg.png',
-    gradient: 'from-amber-600 via-yellow-600 to-green-600',
-    iconColor: '#ca8a04',
-  },
-]
+export type ProgramCardData = {
+  id: string
+  title: string
+  description: string
+  category: string
+  coverImageUrl: string | null
+}
 
-// Icons for program cards (inline SVGs)
 const IconRelief = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -146,7 +86,7 @@ const cardIcons: Record<string, React.FC> = {
   Agro: IconAgro,
 }
 
-const FEATURED_CARD_IMAGES: Record<string, string> = {
+const FALLBACK_CARD_IMAGES: Record<string, string> = {
   Relief: '/humanitarian-card-bg.png',
   Health: '/health-card-bg.png',
   Education: '/education-card-bg.png',
@@ -157,8 +97,8 @@ const FEATURED_CARD_IMAGES: Record<string, string> = {
   Agro: '/agro-card-bg.png',
 }
 
-function ProgramCard({ program }: { program: typeof programs[0] }) {
-  const featuredImage = FEATURED_CARD_IMAGES[program.category]
+function ProgramCard({ program }: { program: ProgramCardData }) {
+  const featuredImage = program.coverImageUrl || FALLBACK_CARD_IMAGES[program.category] || null
   const IconComponent = cardIcons[program.category] || IconRelief
 
   if (featuredImage) {
@@ -167,7 +107,6 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
         href="/programs"
         className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full"
       >
-        {/* 1. Hero image — primary focal point, edge-to-edge */}
         <div className="relative w-full aspect-[2/1] overflow-hidden">
           <Image
             src={featuredImage}
@@ -176,25 +115,23 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
             className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, 33vw"
             quality={95}
+            unoptimized={featuredImage.startsWith('/')}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" aria-hidden />
-          {/* Category badge — secondary label, top-left */}
-          <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-xs font-semibold uppercase tracking-wider text-gray-800">
-            {program.category}
-          </span>
+          {program.category && (
+            <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-xs font-semibold uppercase tracking-wider text-gray-800">
+              {program.category}
+            </span>
+          )}
         </div>
 
-        {/* 2. Content block — clear separation, Z-pattern flow */}
         <div className="p-6 flex flex-col flex-grow">
-          {/* 3. Title — strongest text element */}
           <h3 className="text-2xl font-extrabold text-primary font-sans mb-3 leading-tight border-l-4 border-primary pl-4">
             {program.title}
           </h3>
-          {/* 4. Description — supporting body, reduced visual weight */}
           <p className="text-gray-600 text-[15px] leading-relaxed font-sans line-clamp-3 flex-grow">
             {program.description}
           </p>
-          {/* 5. CTA — tertiary but actionable, bottom-aligned */}
           <span className="mt-6 pt-4 border-t border-gray-100 inline-flex items-center gap-2 text-secondary font-semibold text-sm group-hover:gap-3 transition-all">
             Learn more
             <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,7 +145,7 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
 
   return (
     <Link href="/programs" className="group flex flex-col bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 h-full">
-      <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-4 flex-shrink-0" style={{ color: program.iconColor }}>
+      <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-4 flex-shrink-0 text-white">
         <IconComponent />
       </div>
       <h3 className="text-lg font-bold text-gray-900 font-sans mb-2 group-hover:text-primary transition-colors">
@@ -227,11 +164,12 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
   )
 }
 
-export default function ProgramGrid() {
+export default function ProgramGrid({ programs }: { programs: ProgramCardData[] }) {
+  if (programs.length === 0) return null
+
   return (
     <section id="programs" className="bg-gray-100 py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section headline */}
         <div className="mb-10 md:mb-12 text-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-sans">
             Our Core Programs
@@ -240,10 +178,9 @@ export default function ProgramGrid() {
             Comprehensive initiatives designed to support vulnerable communities and promote sustainable development across Somalia.
           </p>
         </div>
-        {/* Program cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {programs.map((program) => (
-            <ProgramCard key={program.title} program={program} />
+            <ProgramCard key={program.id} program={program} />
           ))}
         </div>
       </div>

@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Source_Serif_4 } from 'next/font/google'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
+import SiteChrome from '@/components/SiteChrome'
+import { auth } from '@/lib/auth'
 
 const generalSans = localFont({
   src: '../GeneralSans_Complete/Fonts/WEB/fonts/GeneralSans-Variable.woff2',
@@ -21,17 +21,17 @@ export const metadata: Metadata = {
   description: 'Kililigo Foundation provides timely humanitarian assistance and promotes recovery, resilience, and social justice in Somalia.',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await auth()
+
   return (
     <html lang="en" className={`${generalSans.variable} ${sourceSerif.variable}`}>
       <body className="font-sans bg-cream text-gray-800 min-h-screen">
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+        <SiteChrome isAdminUser={!!session?.user}>{children}</SiteChrome>
       </body>
     </html>
   )

@@ -12,15 +12,7 @@ const navLinks: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
   { href: '/programs', label: 'Programs' },
-  {
-    href: '/news',
-    label: 'News',
-    submenu: [
-      { href: '/news', label: 'News' },
-      { href: '/news/press-release', label: 'Press Release' },
-      { href: '/news/vacancy', label: 'Vacancy' },
-    ],
-  },
+  { href: '/news', label: 'News' },
   { href: '/contact', label: 'Contact Us' },
 ]
 
@@ -30,7 +22,7 @@ const socialLinks = [
   { href: 'https://www.twitter.com', label: 'Twitter / X' },
 ]
 
-export default function Navigation() {
+export default function Navigation({ showAdmin = false }: { showAdmin?: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [newsDropdownOpen, setNewsDropdownOpen] = useState(false)
@@ -111,9 +103,6 @@ export default function Navigation() {
                       className="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-white/50 transition-colors"
                     >
                       {link.label}
-                      <svg className="w-3 h-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
                     </Link>
                   )
                 )}
@@ -130,6 +119,14 @@ export default function Navigation() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
                 </svg>
               </button>
+              {showAdmin && (
+                <Link
+                  href="/admin"
+                  className="px-3 py-1.5 rounded-lg border border-secondary/30 bg-secondary/10 text-secondary text-sm font-medium hover:bg-secondary hover:text-white transition-colors"
+                >
+                  Admin
+                </Link>
+              )}
               <Link href="/contact" className="px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
                 Contact Us
               </Link>
@@ -312,6 +309,28 @@ export default function Navigation() {
                   </div>
                 </div>
               </li>
+
+              {showAdmin && (
+                <li>
+                  <Link
+                    href="/admin"
+                    onClick={closeMobileMenu}
+                    className="flex items-center justify-between py-5 group"
+                  >
+                    <span className="text-[1.65rem] sm:text-[1.85rem] font-light text-white/90 tracking-tight group-hover:text-white transition-colors">
+                      Admin
+                    </span>
+                    <svg
+                      className="w-4 h-4 text-white/40 group-hover:text-white/60 transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

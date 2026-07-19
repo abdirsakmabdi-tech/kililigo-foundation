@@ -6,22 +6,40 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:push": "tsx --env-file=.env.local scripts/migrate.ts",
+    "db:seed": "tsx --env-file=.env.local scripts/seed-admin.ts",
+    "db:seed:programs": "tsx --env-file=.env.local scripts/seed-programs.ts",
+    "db:seed:about": "tsx --env-file=.env.local scripts/seed-about.ts",
+    "db:seed:home": "tsx --env-file=.env.local scripts/seed-home.ts",
+    "db:seed:contact": "tsx --env-file=.env.local scripts/seed-contact.ts"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "@vercel/blob": "^0.27.3",
+    "bcryptjs": "^3.0.3",
+    "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.34.0",
     "next": "^14.2.0",
+    "next-auth": "^5.0.0-beta.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.0",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
+    "tsx": "^4.23.1",
     "typescript": "^5.0.0"
   }
 }

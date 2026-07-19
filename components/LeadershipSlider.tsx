@@ -1,6 +1,7 @@
 'use client'
 
 type Leader = {
+  id?: string
   name: string
   role: string
   photo: string | null
@@ -48,7 +49,7 @@ export default function LeadershipSlider({ leaders }: { leaders: Leader[] }) {
       >
         {leaders.map((person) => (
           <div
-            key={person.name}
+            key={person.id || person.name}
             className="flex-shrink-0 w-56 md:w-64 snap-start bg-gray-200 rounded-xl overflow-hidden aspect-[3/4] relative flex flex-col justify-end"
           >
             <div className="absolute inset-0 flex items-center justify-center">
