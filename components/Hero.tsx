@@ -20,16 +20,17 @@ export type HeroContent = {
 export default function Hero({ content }: { content: HeroContent }) {
   const heroImages = content.images.length > 0 ? content.images : FALLBACK_IMAGES
   const [currentIndex, setCurrentIndex] = useState(0)
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  // Key on content, not just length, so replacing slides restarts the slideshow
+  const imagesKey = heroImages.join('|')
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % heroImages.length)
+    setCurrentIndex(0)
+    const total = imagesKey.split('|').length
+    const id = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % total)
     }, SLIDE_INTERVAL)
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
-    }
-  }, [heroImages.length])
+    return () => clearInterval(id)
+  }, [imagesKey])
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
